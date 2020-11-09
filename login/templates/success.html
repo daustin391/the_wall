@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block success %}
+
+<div>
+    <h1>Success! Welcome, {{this_user.first_name}} </h1>
+    <p>
+        Successfully registered (or logged in)!
+    </p>
+</div>
+<a href="/logout">Log Out</a>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block title %}Delete a course{% endblock %}
+
+{% block delete %}
+
+<h1>Are you sure you want to delete the following course?</h1>
+<p>
+    Name: {{this_course.name}}
+</p>
+<p>
+    Description: {{this_course.desc}}
+</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="confirm_delete">No</button>
+    <button type="submit" value=true name="confirm_delete">Yes! I want to delete this</button>
+</form>
+
+{% endblock %}

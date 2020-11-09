@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Login & Registration{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    {% block success %}
+
+    <form action="register" method="POST">
+        {% csrf_token %}
+        <h2>Registration</h2>
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name">
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name">
+        <label for="email">Email</label>
+        <input type="email" name="email">
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <label for="confirm_pw">Confirm PW</label>
+        <input type="password" name="confirm_pw">
+        <button type="submit">Register</button>
+    </form>
+    <div>
+        <form action="login" method="POST" id="login">
+            {% csrf_token %}
+            <h2>Login</h2>
+            <label for="email">Email</label>
+            <input type="email" name="email">
+            <label for="password">Password</label>
+            <input type="password" name="password">
+            <button type="submit">Log In</button>
+        </form>
+        <ul>
+            {% for msg in messages %}
+            <li>{{msg}}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+    {% endblock %}
+</body>
+
+</html>
