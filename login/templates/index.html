@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body>
+<body id="log_and_reg">
     {% block success %}
 
-    <form action="register" method="POST">
+    <form action="register" method="POST" id="reg">
         {% csrf_token %}
         <h2>Registration</h2>
         <label for="first_name">First Name</label>

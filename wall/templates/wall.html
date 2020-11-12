@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <header>
+        <h1>CodingDojo Wall</h1>
+        <p>Welcome {{this_user.first_name}}</p>
+        <a href="/logout">Log Out</a>
+    </header>
+    <main>
+        <form action="post" method="POST">
+            {% csrf_token %}
+            <label for="message">
+                <h2>Post a message</h2>
+            </label>
+            <textarea name="message"></textarea>
+
+            <button type="submit">Post a message</button>
+        </form>
+        <ul>
+            {% for msg in all_messages %}
+            <li>
+                <h3>{{ msg.user_id.first_name }} {{ msg.user_id.last_name }} - {{ msg.created_at |date:"F jS Y" }} </h3>
+                {{msg.message}}
+            </li>
+            {% endfor %}
+
+        </ul>
+
+    </main>
+
+</body>
+
+</html>

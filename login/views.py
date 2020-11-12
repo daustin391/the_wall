@@ -5,12 +5,15 @@ from .models import User
 
 
 def index(request):
-    return render(request, "index.html")
+    if "id" in request.session:
+        return success_redirect(request, request.session["id"])
+    else:
+        return render(request, "index.html")
 
 
 def success_redirect(request, user_id):
     request.session["id"] = user_id
-    return redirect("/success")
+    return redirect("/wall")
 
 
 def register(request):
@@ -43,14 +46,6 @@ def login(request):
             messages.error(request, "Invalid login")
 
     return redirect("/")
-
-
-def success(request):
-    if "id" in request.session.keys():
-        context = {"this_user": User.objects.get(id=request.session["id"])}
-        return render(request, "success.html", context)
-    else:
-        return redirect("/")
 
 
 def logout(request):
