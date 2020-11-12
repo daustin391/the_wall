@@ -19,7 +19,7 @@
         <form action="post" method="POST">
             {% csrf_token %}
             <label for="message">
-                <h2>Post a message</h2>
+                <h3>Post a message</h3>
             </label>
             <textarea name="message"></textarea>
 
@@ -28,8 +28,25 @@
         <ul>
             {% for msg in all_messages %}
             <li>
-                <h3>{{ msg.user_id.first_name }} {{ msg.user_id.last_name }} - {{ msg.created_at |date:"F jS Y" }} </h3>
+                <h2>{{ msg.user_id.first_name }} {{ msg.user_id.last_name }} - {{ msg.created_at |date:"F jS Y" }} </h2>
                 {{msg.message}}
+                <form action="post/{{ msg.id }}" method="POST">
+                    {% csrf_token %}
+                    <label for="comment">
+                        <h3>Post a comment</h3>
+                    </label>
+                    <textarea name="comment"></textarea>
+
+                    <button type="submit">Post a comment</button>
+                </form>
+                <ul>
+                    {% for comment in msg.comments.all %}
+                    <h2>{{ comment.user_id.first_name }} {{ comment.user_id.last_name }} -
+                        {{ comment.created_at |date:"F jS Y" }} </h2>
+                    {{comment.comment}}
+
+                    {% endfor %}
+                </ul>
             </li>
             {% endfor %}
 

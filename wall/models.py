@@ -7,6 +7,15 @@ class MessageManager(models.Manager):
         Message.objects.create(user_id=User.objects.get(id=user_id), message=msg)
 
 
+class CommentManager(models.Manager):
+    def make_comment(self, comment, user_id, msg_id):
+        Comment.objects.create(
+            user_id=User.objects.get(id=user_id),
+            comment=comment,
+            message_id=Message.objects.get(id=msg_id),
+        )
+
+
 class Message(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages")
     message = models.TextField()
@@ -23,3 +32,4 @@ class Comment(models.Model):
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    objects = CommentManager()
