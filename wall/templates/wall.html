@@ -26,7 +26,7 @@
             <button type="submit">Post a message</button>
         </form>
         <ul>
-            {% for msg in all_messages %}
+            {% for msg in all_messages|dictsortreversed:"created_at" %}
             <li>
                 <h2>{{ msg.user_id.first_name }} {{ msg.user_id.last_name }} - {{ msg.created_at |date:"F jS Y" }} </h2>
                 {{msg.message}}
@@ -39,8 +39,8 @@
 
                     <button type="submit">Post a comment</button>
                 </form>
-                <ul>
-                    {% for comment in msg.comments.all %}
+                <ul class="comments">
+                    {% for comment in msg.comments.all|dictsort:"created_at" %}
                     <h2>{{ comment.user_id.first_name }} {{ comment.user_id.last_name }} -
                         {{ comment.created_at |date:"F jS Y" }} </h2>
                     {{comment.comment}}
